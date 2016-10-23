@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class CKPageRootScrollView;
 @interface CKPageRootScrollViewCell : UIView
+@property (nonatomic, copy) NSString *identifier;
+
++ (instancetype)cellWithRootScrollView:(CKPageRootScrollView *)rootScrollView;
+- (void)setPageViewInCell:(UIView *)pageView;
 
 @end

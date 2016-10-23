@@ -15,12 +15,15 @@
 @property (nonatomic, strong) UIColor *titleNormalColor;
 @property (nonatomic, strong) UIColor *titleSelectedColor;
 @property (nonatomic, strong) UIColor *navLineColor;
-@property (nonatomic, strong) UIColor *backgroudImage;
+@property (nonatomic, strong) UIImage *backgroundImage;
 
 @property (nonatomic, assign) BOOL isGraduallyChangColor;
-@property (nonatomic, assign) BOOL isGradullyChangColor;
+@property (nonatomic, assign) BOOL isGraduallyChangFont;
 @property (nonatomic, assign) NSInteger minFontSize;
-@property (nonatomic, assign) NSUInteger maxFontSize;
-@property (nonatomic, assign) NSUInteger defaultFontSize;
+@property (nonatomic, assign) NSInteger maxFontSize;
+@property (nonatomic, assign) NSInteger defaultFontSize;
+@property (nonatomic, assign) CGFloat rootScrollViewHeight;
+
+- (id)initWithTitles:(NSArray *)titles andPageViews:(NSMutableArray *)pageViews;
 
 @end

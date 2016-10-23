@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CKPageRootScrollView.h"
 
-@interface CKPageRootScrollViewManager : NSObject
+@interface CKPageRootScrollViewManager : NSObject <CKPageRootScrollViewDelegate, CKPageRootScrollViewDataSource>
+@property (nonatomic, strong) NSMutableArray *pageViews;
+@property (nonatomic, weak) CKPageRootScrollView *rootScrollView;
+@property (nonatomic, assign) CGFloat margin;
 
+- (id)initWithRootScrollView:(CKPageRootScrollView *)rootScrollView;
 @end
