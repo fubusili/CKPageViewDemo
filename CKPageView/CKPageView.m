@@ -7,18 +7,18 @@
 //
 
 #import "CKPageView.h"
-#import "CKScrollNavigationBar.h"
+#import "CKPageScrollNavigationBar.h"
 #import "CKPageRootScrollView.h"
 #import "CKPageItemManager.h"
 #import "UIView+Category.h"
 
 #define kNavigationLineHeight 6
 #define kStaticItemIndex 3
-#define kDefaultBackgroundColor [UIColor blackColor]
+#define kDefaultNavigationWhiteColor [UIColor whiteColor]
 
 @interface CKPageView () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) CKScrollNavigationBar *scrollNavigationBar;
+@property (nonatomic, strong) CKPageScrollNavigationBar *scrollNavigationBar;
 @property (nonatomic, strong) CKPageRootScrollView *rootScrollView;
 
 @property (nonatomic, assign) BOOL showNavigationBarLine;
@@ -61,19 +61,27 @@
         [self.rootScrollView reloadPageViews];
         self.isLayout = YES;
     }
+    [self layoutNavigationBar];
 }
 
 #pragma mark - setup
 - (void)setup {
     [self addSubview:self.rootScrollView];
+    [self addSubview:self.scrollNavigationBar];
     self.clipsToBounds = YES;
     self.userInteractionEnabled = YES;
     if (!self.backgroundColor) {
-        self.backgroundColor = kDefaultBackgroundColor;
+        self.backgroundColor = kDefaultNavigationWhiteColor;
     }
 }
 
 #pragma mark - private methods
+- (void)layoutNavigationBar {
+    self.navigationBarHeight = 45;
+    CGFloat scrollNavigationBarWidth = self.width;
+    self.scrollNavigationBar.frame = CGRectMake(0, 0, scrollNavigationBarWidth, self.navigationBarHeight);
+}
+
 //不允许有相同的标题
 - (BOOL)checkIsHaveSameTitle:(NSArray *)titles {
     for (int i = 0; i < titles.count; i ++ ) {
@@ -99,10 +107,10 @@
     return _rootScrollView;
 }
 
-- (CKScrollNavigationBar *)scrollNavigationBar {
+- (CKPageScrollNavigationBar *)scrollNavigationBar {
 
     if (!_scrollNavigationBar) {
-        _scrollNavigationBar = [[CKScrollNavigationBar alloc] init];
+        _scrollNavigationBar = [[CKPageScrollNavigationBar alloc] init];
         _scrollNavigationBar.backgroundColor = [UIColor redColor];
     }
     return _scrollNavigationBar;

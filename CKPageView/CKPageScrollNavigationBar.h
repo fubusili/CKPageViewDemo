@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CKPageRootScrollView.h"
 
-@interface CKScrollNavigationBar : UIScrollView
+@interface CKPageScrollNavigationBar : UIScrollView
 
 @property (nonatomic, copy) NSString *currentTitle;
 
@@ -28,7 +28,5 @@
 @property (nonatomic, assign) CGFloat offsetX;
 @property (nonatomic, assign) NSInteger minFontSize;
 @property (nonatomic, assign) NSInteger maxFontSize;
-
-- (void)showAllItems;
 
 @end

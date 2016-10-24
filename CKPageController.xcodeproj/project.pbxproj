@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4BA408371DB7A7970001FC67 /* CKScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA408361DB7A7970001FC67 /* CKScrollNavigationBar.m */; };
+		4BA408371DB7A7970001FC67 /* CKPageScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA408361DB7A7970001FC67 /* CKPageScrollNavigationBar.m */; };
 		4BA4083A1DB7C24D0001FC67 /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA408391DB7C24D0001FC67 /* UIView+Category.m */; };
 		4BABF5DA1DBB301E00207D41 /* UIColor+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BABF5D91DBB301E00207D41 /* UIColor+Category.m */; };
 		F1A2E6C41DAB872A006A740F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A2E6C31DAB872A006A740F /* main.m */; };
@@ -24,8 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4BA408351DB7A7970001FC67 /* CKScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKScrollNavigationBar.h; sourceTree = "<group>"; };
-		4BA408361DB7A7970001FC67 /* CKScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKScrollNavigationBar.m; sourceTree = "<group>"; };
+		4BA408351DB7A7970001FC67 /* CKPageScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPageScrollNavigationBar.h; sourceTree = "<group>"; };
+		4BA408361DB7A7970001FC67 /* CKPageScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPageScrollNavigationBar.m; sourceTree = "<group>"; };
 		4BA408381DB7C24D0001FC67 /* UIView+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Category.h"; sourceTree = "<group>"; };
 		4BA408391DB7C24D0001FC67 /* UIView+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Category.m"; sourceTree = "<group>"; };
 		4BABF5D81DBB301E00207D41 /* UIColor+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Category.h"; sourceTree = "<group>"; };
@@ -117,8 +117,8 @@
 				F1A2E6E71DAE3347006A740F /* CKPageRootScrollViewManager.m */,
 				F1A2E6DD1DAE32A6006A740F /* CKPageItemManager.h */,
 				F1A2E6DE1DAE32A6006A740F /* CKPageItemManager.m */,
-				4BA408351DB7A7970001FC67 /* CKScrollNavigationBar.h */,
-				4BA408361DB7A7970001FC67 /* CKScrollNavigationBar.m */,
+				4BA408351DB7A7970001FC67 /* CKPageScrollNavigationBar.h */,
+				4BA408361DB7A7970001FC67 /* CKPageScrollNavigationBar.m */,
 				4BA408381DB7C24D0001FC67 /* UIView+Category.h */,
 				4BA408391DB7C24D0001FC67 /* UIView+Category.m */,
 				4BABF5D81DBB301E00207D41 /* UIColor+Category.h */,
@@ -158,6 +158,7 @@
 				TargetAttributes = {
 					F1A2E6BE1DAB872A006A740F = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = Y5AS6AEYYG;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -198,7 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BA408371DB7A7970001FC67 /* CKScrollNavigationBar.m in Sources */,
+				4BA408371DB7A7970001FC67 /* CKPageScrollNavigationBar.m in Sources */,
 				F1A2E6CA1DAB872B006A740F /* ViewController.m in Sources */,
 				F1A2E6E51DAE332E006A740F /* CKPageRootScrollViewCell.m in Sources */,
 				F1A2E6DC1DAE3272006A740F /* CKPageView.m in Sources */,
@@ -328,7 +329,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Y5AS6AEYYG;
 				INFOPLIST_FILE = CKPageController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = clark.CKPageController;
@@ -340,7 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Y5AS6AEYYG;
 				INFOPLIST_FILE = CKPageController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = clark.CKPageController;

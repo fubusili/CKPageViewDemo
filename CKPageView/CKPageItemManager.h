@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CKScrollNavigationBar.h"
+#import "CKPageScrollNavigationBar.h"
 
 @interface CKPageItemManager : NSObject
 
-@property (nonatomic,  weak) CKScrollNavigationBar *scrollNavigationBar;
+@property (nonatomic,  weak) CKPageScrollNavigationBar *scrollNavigationBar;
 
 + (id)sharedItemManager;
 

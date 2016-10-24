@@ -6,21 +6,20 @@
 //  Copyright © 2016年 Clark. All rights reserved.
 //
 
-#import "CKScrollNavigationBar.h"
+#import "CKPageScrollNavigationBar.h"
 #import "UIView+Category.h"
 #import "CKPageItemManager.h"
 #import "UIColor+Category.h"
 
 #define kItemWidth 75
-#define kFontMinSize 10
-#define kFontDefaultLeftSize 10
-#define kFontDefaultSize 15
+#define kDedaultMinFontSize 15
+#define kDefaultMaxFontSize 20
 #define kStaticItemIndex 3
 #define kScrollNavigationBarUpdate @"kScrollNavigationBarUpdate"
 #define kMoveToSelectedItem @"kMoveToSelectedItem"
 #define kMoveToTop @"kMoveToTop"
 
-@interface CKScrollNavigationBar () <UIScrollViewDelegate>
+@interface CKPageScrollNavigationBar () <UIScrollViewDelegate>
 @property (nonatomic, weak) UIButton *firstButton;
 @property (nonatomic, weak) UIButton *secondButton;
 @property (nonatomic, strong) NSMutableDictionary *tmpPageViewDictionary;
@@ -41,7 +40,7 @@
 @property (nonatomic, assign) NSInteger currentIndex;
 @end
 
-@implementation CKScrollNavigationBar
+@implementation CKPageScrollNavigationBar
 #pragma mark - lifecycle
 - (instancetype)init {
 
@@ -66,7 +65,8 @@
     self.isGraduallyChangeColor = YES;
     self.isGraduallyChangeFont = YES;
     self.userInteractionEnabled = YES;
-    self.showsHorizontalScrollIndicator = YES;
+    self.showsHorizontalScrollIndicator = NO;
+    self.showsVerticalScrollIndicator = NO;
     [self addObserver];
 }
 
@@ -78,10 +78,10 @@
         button.tag = i;
         if (i == 0) {
             button.selected = YES;
-            if (self.maxFontSize) {
+            if (self.maxFontSize && self.isGraduallyChangeFont) {
                 button.titleLabel.font = [UIFont systemFontOfSize:self.maxFontSize];
             } else {
-                button.titleLabel.font = [UIFont systemFontOfSize:kFontDefaultLeftSize + kFontMinSize];
+                button.titleLabel.font = [UIFont systemFontOfSize:kDedaultMinFontSize];
             }
             _currentItem = button;
         }
@@ -113,9 +113,9 @@
         if (self.isGraduallyChangeFont) {
             [self addOffset];
         } else {
-            NSInteger fontSize = self.maxFontSize > 0 ? self.maxFontSize : (kFontDefaultLeftSize + kFontDefaultSize);
+            
             UIButton *button = [self.itemDictionary objectForKey:self.tmpKeys[0]];
-            button.titleLabel.font = [UIFont systemFontOfSize:fontSize];
+            button.titleLabel.font = [UIFont systemFontOfSize:kDedaultMinFontSize];
         }
         self.isLayoutItems = YES;
     }
@@ -132,7 +132,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitlesWithNotification:) name:kScrollNavigationBarUpdate object:nil];
 }
 
-
 - (void)updateTitlesWithNotification:(NSNotification *)notification {
     [self updatePageViewWithNotification:notification];
     [self layoutButtons];
@@ -142,59 +141,30 @@
 
     UIButton *button = [[UIButton alloc] init];
     [button setTitle:title forState:UIControlStateNormal];
-    button.backgroundColor = [UIColor clearColor];
-    NSInteger fontSize = self.minFontSize > 0 ? self.minFontSize : kFontMinSize;
+    NSInteger fontSize = self.minFontSize > 0 ? self.minFontSize : kDedaultMinFontSize;
     button.titleLabel.font = [UIFont systemFontOfSize:fontSize];
     [button addTarget:self action:@selector(buttonDidClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
     return button;
 }
-- (void)buttonDidClick:(UIButton *)btn {
-    if (!self.isGraduallyChangeFont) {
-        [self clickButtonWhenNotGraduallyChangeFontWithButton:btn];
-    } else {
-        _oldItem = _currentItem;
-        _currentItem.selected = YES;
-        btn.selected = YES;
-        _currentItem = btn;
-    }
-    CGFloat offsetX = btn.tag * self.rootScrollView.width;
-    [self.rootScrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
-}
 
-- (void)selectedItemWhenNotGraduallyChangeFontWithButton:(UIButton *)button {
+- (void)notGraduallyChangeFontWithButton:(UIButton *)button {
     _oldItem = _currentItem;
     if (self.minFontSize) {
         _oldItem.titleLabel.font = [UIFont systemFontOfSize:self.minFontSize];
     } else {
-        _oldItem.titleLabel.font = [UIFont systemFontOfSize:kFontMinSize];
+        _oldItem.titleLabel.font = [UIFont systemFontOfSize:kDedaultMinFontSize];
     }
     _currentItem.selected = NO;
     button.selected = YES;
     _currentItem = button;
-    if (self.maxFontSize) {
-        _currentItem.titleLabel.font = [UIFont systemFontOfSize:self.maxFontSize];
-    } else {
-        _currentItem.titleLabel.font = [UIFont systemFontOfSize:kFontDefaultSize + kFontDefaultLeftSize];
+    if (self.isGraduallyChangeFont) {
+        if (self.maxFontSize) {
+            _currentItem.titleLabel.font = [UIFont systemFontOfSize:self.maxFontSize];
+        } else {
+            _currentItem.titleLabel.font = [UIFont systemFontOfSize:kDefaultMaxFontSize];
+        }
     }
-}
-
-- (void)clickButtonWhenNotGraduallyChangeFontWithButton:(UIButton *)button {
-    _oldItem = _currentItem;
-    if (self.minFontSize) {
-        _oldItem.titleLabel.font = [UIFont systemFontOfSize:self.minFontSize];
-    } else {
-        _oldItem.titleLabel.font = [UIFont systemFontOfSize:kFontMinSize];
-    }
-    _currentItem.selected = NO;
-    button.selected = YES;
-    _currentItem = button;
-    if (self.maxFontSize) {
-        _currentItem.titleLabel.font = [UIFont systemFontOfSize:self.maxFontSize];
-    } else {
-        _currentItem.titleLabel.font = [UIFont systemFontOfSize:kFontDefaultSize + kFontDefaultLeftSize];
-    }
-    
 }
 
 - (NSInteger)getIndexWithKey:(NSString *)key {
@@ -223,7 +193,7 @@
 - (void)setSelectedItemWithIndex:(NSInteger)index {
     UIButton *button = [self.itemDictionary objectForKey:self.tmpKeys[index]];
     if (!self.isGraduallyChangeFont) {
-        [self selectedItemWhenNotGraduallyChangeFontWithButton:button];
+        [self notGraduallyChangeFontWithButton:button];
     } else {
         _oldItem = _currentItem;
         _currentItem.selected = NO;
@@ -249,7 +219,7 @@
 }
 
 #pragma mark  渐变 动画相关
-- (void)setItemFontColorWithFrontItem:(UIButton *)frontItem AndBackItem:(UIButton *)backItem andPrecent:(CGFloat)p{
+- (void)setItemFontColorWithFrontItem:(UIButton *)frontItem andBackItem:(UIButton *)backItem andPrecent:(CGFloat)p{
     if (self.isGraduallyChangeColor) {
         CGFloat redTemp1 = ((self.redTwo - self.redOne) * (1-p)) + self.redOne;
         CGFloat greenTemp1 = ((self.greenTwo - self.greenOne) * (1 - p)) + self.greenOne;
@@ -264,7 +234,7 @@
     }
 }
 
-- (void)setItemFontSizeWithFrontItem:(UIButton *)frontItem AndBackItem:(UIButton *)backItem andPrecent:(CGFloat)p{
+- (void)setItemFontSizeWithFrontItem:(UIButton *)frontItem andBackItem:(UIButton *)backItem andPrecent:(CGFloat)p{
     
     if (self.isGraduallyChangeFont) {
         CGFloat fontSize1;
@@ -274,17 +244,17 @@
                 fontSize1 = (1- p) * (self.maxFontSize - self.minFontSize) + self.minFontSize;
                 fontSize2 = p * (self.maxFontSize - self.minFontSize) + self.minFontSize;
             }else{
-                fontSize1 = (1- p) * (self.maxFontSize - kFontMinSize) + kFontMinSize;
-                fontSize2 = p * (self.maxFontSize - kFontMinSize) + kFontMinSize;
+                fontSize1 = (1- p) * (self.maxFontSize - kDedaultMinFontSize) + kDedaultMinFontSize;
+                fontSize2 = p * (self.maxFontSize - kDedaultMinFontSize) + kDedaultMinFontSize;
             }
         }else{
             if (self.minFontSize) {
-                fontSize1 = (1- p) * kFontDefaultLeftSize + self.minFontSize;
-                fontSize2 = p * kFontDefaultLeftSize + self.minFontSize;
+                fontSize1 = (1- p) * self.minFontSize;
+                fontSize2 = p *  self.minFontSize;
                 
             }else{
-                fontSize1 = (1- p) * kFontDefaultLeftSize + kFontMinSize;
-                fontSize2 = p * kFontDefaultLeftSize + kFontMinSize;
+                fontSize1 = (1- p) * kDedaultMinFontSize;
+                fontSize2 = p * kDedaultMinFontSize;
             }
         }
         frontItem.titleLabel.font = [UIFont systemFontOfSize:fontSize1];
@@ -297,8 +267,8 @@
         self.firstButton.titleLabel.font = [UIFont systemFontOfSize:self.minFontSize];
         self.secondButton.titleLabel.font = [UIFont systemFontOfSize:self.minFontSize];
     }else{
-        self.firstButton.titleLabel.font = [UIFont systemFontOfSize:kFontDefaultSize];
-        self.secondButton.titleLabel.font = [UIFont systemFontOfSize:kFontDefaultSize];
+        self.firstButton.titleLabel.font = [UIFont systemFontOfSize:kDefaultMaxFontSize];
+        self.secondButton.titleLabel.font = [UIFont systemFontOfSize:kDefaultMaxFontSize];
     }
     
     [self.firstButton setTitleColor:self.titleNormalColor forState:UIControlStateNormal];
@@ -316,20 +286,29 @@
     self.firstButton = [self.itemDictionary objectForKey:self.tmpKeys[index]];
     self.secondButton   = (index + 1 < self.tmpKeys.count) ? [self.itemDictionary objectForKey:self.tmpKeys[index + 1]] : nil;
     
-    [self setItemFontSizeWithFrontItem:self.firstButton AndBackItem:self.secondButton andPrecent:p];
-    [self setItemFontColorWithFrontItem:self.firstButton AndBackItem:self.secondButton andPrecent:p];
+    [self setItemFontSizeWithFrontItem:self.firstButton andBackItem:self.secondButton andPrecent:p];
+    [self setItemFontColorWithFrontItem:self.firstButton andBackItem:self.secondButton andPrecent:p];
 }
 
-- (void)showAllItems{
-    for (int i = 0; i < self.tmpKeys.count; i++) {
-        UIButton *button = [self getItemWithIndex:i];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:0.5 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-                button.y = 0;
-            } completion:nil];
-        });
+#pragma mark - button action
+
+- (void)buttonDidClick:(UIButton *)btn {
+    if (btn.isSelected) {
+        return;
     }
+    if (!self.isGraduallyChangeFont) {
+        [self notGraduallyChangeFontWithButton:btn];
+    } else {
+        _oldItem = _currentItem;
+        _currentItem.selected = NO;
+        btn.selected = YES;
+        _currentItem = btn;
+    }
+    CGFloat offsetX = btn.tag * self.rootScrollView.width;
+    [self buttonMoveAnimationWithIndex:btn.tag];
+    [self.rootScrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
 }
+
 
 #pragma mark - scrollView代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -399,6 +378,18 @@
     self.alphaOne = rgba.A;
 }
 
+- (void)setTitleSelecterColor:(UIColor *)titleSelecterColor {
+    _titleSelecterColor = titleSelecterColor;
+    [self.itemDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, UIButton *obj, BOOL * _Nonnull stop) {
+        [obj setTitleColor:titleSelecterColor forState:UIControlStateSelected];
+    }];
+    RGBA rgba = RGBAFromUIColor(titleSelecterColor);
+    self.redTwo = rgba.R;
+    self.greenTwo = rgba.G;
+    self.blueTwo = rgba.B;
+    self.alphaTwo = rgba.A;
+}
+
 - (void)setIsGraduallyChangeColor:(BOOL)isGraduallyChangeColor {
 
     _isGraduallyChangeColor = isGraduallyChangeColor;
@@ -419,22 +410,20 @@
 }
 
 - (void)setMinFontSize:(NSInteger)minFontSize {
-    if (minFontSize > kFontMinSize && minFontSize < kFontDefaultSize + kFontDefaultLeftSize) {
+    if (minFontSize >= kDedaultMinFontSize && minFontSize < kDefaultMaxFontSize) {
         _minFontSize = minFontSize;
-        [self setItemsFontWithFontSize:_minFontSize];
     }else {
-        _minFontSize = kFontMinSize;
+        _minFontSize = kDedaultMinFontSize;
     }
-    [self setItemsFontWithFontSize:_minFontSize];
+    [self setItemsFontWithFontSize:minFontSize];
 }
 
 - (void)setMaxFontSize:(NSInteger)maxFontSize {
 
-    if (maxFontSize > kFontDefaultSize + kFontDefaultLeftSize) {
+    if (maxFontSize >= kDefaultMaxFontSize) {
         _maxFontSize = maxFontSize;
     }else {
-    
-        _maxFontSize = kFontMinSize + kFontDefaultLeftSize;
+        _maxFontSize = kDefaultMaxFontSize;
     }
 }
 

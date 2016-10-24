@@ -21,49 +21,41 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:view];
+    self.view.backgroundColor = [UIColor redColor];
     
     //不允许有重复的标题
-    self.titles = @[@"网易",@"新浪",@"腾讯",@"苹果",@"搜狐",@"淘宝",@"京东",@"百度",@"有道",@"小米",@"华为",@"三星"];
+    self.titles = @[@"脸书",@"Google",@"苹果",@"iMac",@"谷歌",@"🍎",@"😍😘",@"三星",@"🎯",@"iPhone",@"iPad"];
     
-    CKPageView *cursor = [[CKPageView alloc]init];
-    cursor.frame = CGRectMake(0, 64, self.view.width, 45);
+    CKPageView *cursor = [[CKPageView alloc] init];
+//    CKPageView *cursor = [[CKPageView alloc] initWithTitles:self.titles andPageViews:[self createPageViews]];
+    cursor.frame = CGRectMake(0, 64, self.view.width, 44);
     cursor.titles = self.titles;
     cursor.pageViews = [self createPageViews];
     //设置根滚动视图的高度
-    cursor.rootScrollViewHeight = self.view.frame.size.height -109;
-    //默认值是白色
-    cursor.titleNormalColor = [UIColor whiteColor];
+    cursor.rootScrollViewHeight = self.view.frame.size.height - 108;
+    //默认值是黑色
+    cursor.titleNormalColor = [UIColor darkGrayColor];
     //默认值是白色
     cursor.titleSelectedColor = [UIColor redColor];
-    //默认的最小值是5，小于默认值的话按默认值设置
-    cursor.minFontSize = 11;
-    //默认的最大值是25，小于默认值的话按默认值设置，大于默认值按设置的值处理
-    //cursor.maxFontSize = 30;
-    //cursor.isGraduallyChangFont = NO;
-    //在isGraduallyChangFont为NO的时候，isGraduallyChangColor不会有效果
-    //cursor.isGraduallyChangColor = NO;
+    //默认15，小于默认值按默认值
+    cursor.minFontSize = 15;
+    //默认18，小于默认值按默认值，大于默认值按设置的值
+    cursor.maxFontSize = 20;
+    // 标题字体渐变
+    cursor.isGraduallyChangFont = YES;
+    // 标题颜色渐变
+    cursor.isGraduallyChangColor = YES;
     [self.view addSubview:cursor];
 }
 
 - (NSMutableArray *)createPageViews{
     NSMutableArray *pageViews = [NSMutableArray array];
     for (NSInteger i = 0; i < self.titles.count; i++) {
-//        if(i % 3 == 0){
-            UITableView *textView = [[UITableView alloc]init];
-            textView.delegate = self;
-            textView.dataSource = self;
-            textView.tag = i;
-            [pageViews addObject:textView];
-//        }else{
-////            HATestView *textView = [[HATestView alloc]init];
-////            //textView.tag = i;
-////            textView.label.text = self.titles[i];
-////            [pageViews addObject:textView];
-//        }
-        
+        UITableView *textView = [[UITableView alloc]init];
+        textView.delegate = self;
+        textView.dataSource = self;
+        textView.tag = i;
+        [pageViews addObject:textView];
     }
     return pageViews;
 }
@@ -77,8 +69,14 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"Cell - %@",self.titles[tableView.tag]];
+    if (indexPath.row % 2 == 0) {
+        cell.contentView.backgroundColor = [UIColor cyanColor];
+    } else {
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld - %@",tableView.tag,self.titles[tableView.tag]];
     return cell;
 }
 
