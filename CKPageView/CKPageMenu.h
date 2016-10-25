@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CKPageView : UIView
+@interface CKPageMenu : UIView
 @property (nonatomic, strong) NSArray *titles;
 @property (nonatomic, strong) NSMutableArray *pageViews;
 

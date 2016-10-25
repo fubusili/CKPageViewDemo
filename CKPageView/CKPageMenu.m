@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Clark. All rights reserved.
 //
 
-#import "CKPageView.h"
+#import "CKPageMenu.h"
 #import "CKPageScrollNavigationBar.h"
 #import "CKPageRootScrollView.h"
 #import "CKPageItemManager.h"
@@ -16,7 +16,7 @@
 #define kStaticItemIndex 3
 #define kDefaultNavigationWhiteColor [UIColor whiteColor]
 
-@interface CKPageView () <UIScrollViewDelegate>
+@interface CKPageMenu () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) CKPageScrollNavigationBar *scrollNavigationBar;
 @property (nonatomic, strong) CKPageRootScrollView *rootScrollView;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation CKPageView
+@implementation CKPageMenu
 
 #pragma mark - lifecycle
 
@@ -102,7 +102,6 @@
     if (!_rootScrollView) {
         _rootScrollView = [[CKPageRootScrollView alloc] init];
         _rootScrollView.pagingEnabled = YES;
-        _rootScrollView.backgroundColor = [UIColor lightGrayColor];
     }
     return _rootScrollView;
 }

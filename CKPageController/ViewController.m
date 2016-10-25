@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "CKPageView.h"
+#import "CKPageMenu.h"
 #import "UIView+Category.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -21,12 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;//禁止UITableView自动下移64像素
+    self.title = @"CKPageMenu";
     
     //不允许有重复的标题
     self.titles = @[@"脸书",@"Google",@"苹果",@"iMac",@"谷歌",@"🍎",@"😍😘",@"三星",@"🎯",@"iPhone",@"iPad"];
     
-    CKPageView *cursor = [[CKPageView alloc] init];
+    CKPageMenu *cursor = [[CKPageMenu alloc] init];
 //    CKPageView *cursor = [[CKPageView alloc] initWithTitles:self.titles andPageViews:[self createPageViews]];
     cursor.frame = CGRectMake(0, 64, self.view.width, 44);
     cursor.titles = self.titles;
@@ -76,7 +77,7 @@
     } else {
         cell.contentView.backgroundColor = [UIColor whiteColor];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld - %@",tableView.tag,self.titles[tableView.tag]];
+    cell.textLabel.text = [NSString stringWithFormat:@"tableViw %ld, Cell %ld - %@",tableView.tag,indexPath.row,self.titles[tableView.tag]];
     return cell;
 }
 

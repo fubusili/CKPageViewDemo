@@ -282,12 +282,14 @@
     CGFloat p = fmod(offset, width) /width;
     NSInteger index = offset / width;
     self.currentIndex = index;
+    if (index < self.tmpKeys.count) {
+        self.firstButton = [self.itemDictionary objectForKey:self.tmpKeys[index]];
+        self.secondButton   = (index + 1 < self.tmpKeys.count) ? [self.itemDictionary objectForKey:self.tmpKeys[index + 1]] : nil;
+        
+        [self setItemFontSizeWithFrontItem:self.firstButton andBackItem:self.secondButton andPrecent:p];
+        [self setItemFontColorWithFrontItem:self.firstButton andBackItem:self.secondButton andPrecent:p];
+    }
     
-    self.firstButton = [self.itemDictionary objectForKey:self.tmpKeys[index]];
-    self.secondButton   = (index + 1 < self.tmpKeys.count) ? [self.itemDictionary objectForKey:self.tmpKeys[index + 1]] : nil;
-    
-    [self setItemFontSizeWithFrontItem:self.firstButton andBackItem:self.secondButton andPrecent:p];
-    [self setItemFontColorWithFrontItem:self.firstButton andBackItem:self.secondButton andPrecent:p];
 }
 
 #pragma mark - button action

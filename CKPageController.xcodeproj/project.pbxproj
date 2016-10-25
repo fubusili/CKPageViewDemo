@@ -16,7 +16,7 @@
 		F1A2E6CD1DAB872B006A740F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1A2E6CB1DAB872B006A740F /* Main.storyboard */; };
 		F1A2E6CF1DAB872B006A740F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A2E6CE1DAB872B006A740F /* Assets.xcassets */; };
 		F1A2E6D21DAB872B006A740F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1A2E6D01DAB872B006A740F /* LaunchScreen.storyboard */; };
-		F1A2E6DC1DAE3272006A740F /* CKPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A2E6DB1DAE3272006A740F /* CKPageView.m */; };
+		F1A2E6DC1DAE3272006A740F /* CKPageMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A2E6DB1DAE3272006A740F /* CKPageMenu.m */; };
 		F1A2E6DF1DAE32A6006A740F /* CKPageItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A2E6DE1DAE32A6006A740F /* CKPageItemManager.m */; };
 		F1A2E6E21DAE331B006A740F /* CKPageRootScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A2E6E11DAE331B006A740F /* CKPageRootScrollView.m */; };
 		F1A2E6E51DAE332E006A740F /* CKPageRootScrollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A2E6E41DAE332E006A740F /* CKPageRootScrollViewCell.m */; };
@@ -40,8 +40,8 @@
 		F1A2E6CE1DAB872B006A740F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1A2E6D11DAB872B006A740F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1A2E6D31DAB872B006A740F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F1A2E6DA1DAE3272006A740F /* CKPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPageView.h; sourceTree = "<group>"; };
-		F1A2E6DB1DAE3272006A740F /* CKPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPageView.m; sourceTree = "<group>"; };
+		F1A2E6DA1DAE3272006A740F /* CKPageMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPageMenu.h; sourceTree = "<group>"; };
+		F1A2E6DB1DAE3272006A740F /* CKPageMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPageMenu.m; sourceTree = "<group>"; };
 		F1A2E6DD1DAE32A6006A740F /* CKPageItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPageItemManager.h; sourceTree = "<group>"; };
 		F1A2E6DE1DAE32A6006A740F /* CKPageItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKPageItemManager.m; sourceTree = "<group>"; };
 		F1A2E6E01DAE331B006A740F /* CKPageRootScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKPageRootScrollView.h; sourceTree = "<group>"; };
@@ -107,8 +107,8 @@
 		F1A2E6D91DAE3252006A740F /* CKPageView */ = {
 			isa = PBXGroup;
 			children = (
-				F1A2E6DA1DAE3272006A740F /* CKPageView.h */,
-				F1A2E6DB1DAE3272006A740F /* CKPageView.m */,
+				F1A2E6DA1DAE3272006A740F /* CKPageMenu.h */,
+				F1A2E6DB1DAE3272006A740F /* CKPageMenu.m */,
 				F1A2E6E01DAE331B006A740F /* CKPageRootScrollView.h */,
 				F1A2E6E11DAE331B006A740F /* CKPageRootScrollView.m */,
 				F1A2E6E31DAE332E006A740F /* CKPageRootScrollViewCell.h */,
@@ -202,7 +202,7 @@
 				4BA408371DB7A7970001FC67 /* CKPageScrollNavigationBar.m in Sources */,
 				F1A2E6CA1DAB872B006A740F /* ViewController.m in Sources */,
 				F1A2E6E51DAE332E006A740F /* CKPageRootScrollViewCell.m in Sources */,
-				F1A2E6DC1DAE3272006A740F /* CKPageView.m in Sources */,
+				F1A2E6DC1DAE3272006A740F /* CKPageMenu.m in Sources */,
 				F1A2E6C71DAB872A006A740F /* AppDelegate.m in Sources */,
 				F1A2E6E81DAE3347006A740F /* CKPageRootScrollViewManager.m in Sources */,
 				F1A2E6DF1DAE32A6006A740F /* CKPageItemManager.m in Sources */,

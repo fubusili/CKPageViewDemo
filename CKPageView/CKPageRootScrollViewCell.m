@@ -29,7 +29,6 @@
     if (!cell) {
         cell = [[CKPageRootScrollViewCell alloc] init];
         cell.identifier = cellID;
-        cell.backgroundColor = [UIColor yellowColor];
     }
     return cell;
 }
